@@ -7,7 +7,7 @@ sensor_equal_max_value = []
 #de numeros a un arreglo que sirve para almacenar sus valores y mostrarlos en pantalla
 #si la suma es menos significa que los numeros de la derecha (es decir los que son mayores a esos) puede ser que si sumen el valor indicado
 #y no los de la izquierda (que son menores)
-def count_cross_pairs(left, right, x):
+def conquer(left, right, x):
     left.sort()
     right.sort()
     i = 0
@@ -26,7 +26,7 @@ def count_cross_pairs(left, right, x):
 
 #este es el divide, donde recibimos el arreglo y el valor que buscamos que los pares sumen
 #se divide el arreglo en 2 y se usa recursividad para ir diviendo los arregllos hasta que sean de tamaño 1
-def count_pairs_divide_and_conquer(arr, x):
+def divide(arr, x):
     n = len(arr)
     if n < 2:
         return 0
@@ -36,13 +36,13 @@ def count_pairs_divide_and_conquer(arr, x):
     right = arr[mid:]
 
     #la parte izquierda
-    count_left = count_pairs_divide_and_conquer(left, x)
+    count_left = divide(left, x)
     
     #la parte derecha
-    count_right = count_pairs_divide_and_conquer(right, x)
+    count_right = divide(right, x)
 
     #este es el venceras que la se mostro arriba
-    count_cross = count_cross_pairs(left, right, x)
+    count_cross = conquer(left, right, x)
 
     
 def main():
@@ -53,7 +53,7 @@ def main():
     sensor_values = [int(num) for num in input_list]
     max_value = int(input())
     
-    count_pairs_divide_and_conquer(sensor_values,max_value)
+    divide(sensor_values,max_value)
     print("El número de pares que suman ", max_value, " es: ",len(sensor_equal_max_value))
     print("Los pares de sensores son: {")
     for i in range(len(sensor_equal_max_value)):
